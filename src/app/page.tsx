@@ -48,6 +48,16 @@ export default async function page({ searchParams }: Props) {
   }
   return (
     <>
+      <div className="mx-auto flex max-w-3xl flex-col items-center py-20 text-center">
+        <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+          Your marketplace for Your <span className="text-primary">needs</span>.
+        </h1>
+        <p className="mt-6 max-w-prose text-lg text-muted-foreground">
+          Welcome to Next Dukan. Every product on our platform is verified by
+          our team to ensure our highest quality standards.
+        </p>
+      </div>
+      <h1 className="text-2xl font-bold">Filters</h1>
       <nav className="grid w-full grid-cols-2 gap-2 lg:w-1/2  ">
         <FilterButton
           label="Men's clothing"

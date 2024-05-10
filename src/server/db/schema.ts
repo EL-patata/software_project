@@ -115,7 +115,7 @@ export const products = createTable(
   }),
 );
 
-export const productsRelations = relations(users, ({ one }) => ({
+export const productsRelations = relations(products, ({ one }) => ({
   user: one(users, { fields: [products.userId], references: [users.id] }),
 }));
 
@@ -130,6 +130,6 @@ export const orders = createTable("order", {
     .notNull(),
 });
 
-export const ordersRelations = relations(users, ({ one }) => ({
+export const ordersRelations = relations(orders, ({ one }) => ({
   user: one(users, { fields: [orders.userId], references: [users.id] }),
 }));

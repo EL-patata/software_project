@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`flex min-w-full flex-col gap-1 p-4 font-sans ${inter.variable}`}
+        className={`flex min-w-full flex-col gap-1 px-4 font-sans ${inter.variable}`}
       >
         <SessionProvider>
           <ShoppingCartProvider>
