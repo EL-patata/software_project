@@ -14,6 +14,8 @@ import {
 import { db } from "~/server/db";
 import { products } from "~/server/db/schema";
 import { Plus } from "lucide-react";
+import { Label } from "~/components/ui/label";
+import { Textarea } from "~/components/ui/textarea";
 
 async function createProduct(formData: FormData) {
   "use server";
@@ -36,7 +38,6 @@ async function createProduct(formData: FormData) {
   revalidatePath("/");
 }
 
-let d: Product;
 export default async function page() {
   const data = await getServerAuthSession();
 
@@ -48,18 +49,27 @@ export default async function page() {
         <p className="-mt-1">Create a new product</p>{" "}
         <Plus className="h-8 w-8" />
       </h1>
+      <Label htmlFor="id">Id</Label>
       <Input placeholder="Id" name="id" id="id" />
+
+      <Label htmlFor="name">Name</Label>
       <Input placeholder="Name" name="name" id="name" />
+
+      <Label htmlFor="image">Image url</Label>
       <Input placeholder="Image" name="image" id="image" />
-      <Input
+
+      <Label htmlFor="description">Description</Label>
+      <Textarea
         placeholder="Description"
         name="description"
         id="description"
         className="h-32"
       />
+
+      <Label htmlFor="price">Price</Label>
       <Input placeholder="Price" name="price" id="price" />
       <Select name="category">
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-full">
           <SelectValue placeholder="Category" />
         </SelectTrigger>
         <SelectContent>

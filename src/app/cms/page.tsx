@@ -30,8 +30,6 @@ type Props = {
 async function deleteProduct(formData: FormData) {
   "use server";
 
-  console.log(formData.get("id"));
-
   await db.delete(products).where(eq(products.id, formData.get("id") as any));
 
   revalidatePath("/");

@@ -1,14 +1,8 @@
-import { and, between, eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { Expand } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import FilterButton from "~/components/FilterButton";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "~/components/ui/accordion";
 import { buttonVariants } from "~/components/ui/button";
 import {
   Card,

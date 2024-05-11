@@ -1,12 +1,13 @@
-import { type Config } from "drizzle-kit";
+import { defineConfig } from "drizzle-kit";
 
 import { env } from "~/env";
 
-export default {
+export default defineConfig({
+  dialect: "postgresql",
   schema: "./src/server/db/schema.ts",
-  driver: "pg",
   dbCredentials: {
-    connectionString: env.DATABASE_URL,
+    url: env.DATABASE_URL as any,
+    host: process.env.NEXTAUTH_URL,
   },
   tablesFilter: ["book-reader_*"],
-} satisfies Config;
+});

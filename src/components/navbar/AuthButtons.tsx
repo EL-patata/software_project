@@ -1,5 +1,5 @@
 "use client";
-import { KanbanSquare, LogIn, LogOut } from "lucide-react";
+import { KanbanSquare, ListOrdered, LogIn, LogOut } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -13,7 +13,11 @@ import SignInButtons from "../auth/SignInButtons";
 import { Button, buttonVariants } from "../ui/button";
 import Link from "next/link";
 
-export default function AuthButtons() {
+type Props = {
+  role: "ADMIN" | "USER";
+};
+
+export default function AuthButtons({ role }: Props) {
   const { data } = useSession();
 
   if (data?.user)
@@ -42,10 +46,22 @@ export default function AuthButtons() {
               </Button>
             </DropdownMenuItem>
             <DropdownMenuItem className="hover:bg-background focus:bg-background">
-              <Link href={`/cms`} className={buttonVariants()}>
-                Studio <KanbanSquare />
+              <Link
+                href={`/orders`}
+                className={buttonVariants({
+                  variant: "outline",
+                })}
+              >
+                Orders <ListOrdered />
               </Link>
             </DropdownMenuItem>
+            {role === "ADMIN" ? (
+              <DropdownMenuItem className="hover:bg-background focus:bg-background">
+                <Link href={`/cms`} className={buttonVariants()}>
+                  Studio <KanbanSquare />
+                </Link>
+              </DropdownMenuItem>
+            ) : null}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

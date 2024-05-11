@@ -1,16 +1,15 @@
 import { relations, sql } from "drizzle-orm";
 import {
+  decimal,
   index,
   integer,
   pgTableCreator,
   primaryKey,
-  decimal,
   text,
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
-import { number } from "zod";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -28,6 +27,7 @@ export const users = createTable("user", {
     mode: "date",
   }).default(sql`CURRENT_TIMESTAMP`),
   image: varchar("image", { length: 255 }),
+  role: text("role", { enum: ["ADMIN", "USER"] }),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -124,12 +124,17 @@ export const orders = createTable("order", {
   userId: varchar("userId", { length: 255 })
     .notNull()
     .references(() => users.id),
-  products: varchar("products", { length: 255 }).notNull().array(),
   createdAt: timestamp("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
+  paid: varchar("paid", { length: 255 }),
 });
 
-export const ordersRelations = relations(orders, ({ one }) => ({
-  user: one(users, { fields: [orders.userId], references: [users.id] }),
-}));
+export const orderedProducts = createTable("ordered_products", {
+  id: varchar("id", { length: 255 }).primaryKey(),
+  orderId: varchar("orderId", { length: 255 }).references(() => orders.id),
+  productId: varchar("productId", { length: 255 }).references(
+    () => products.id,
+  ),
+  productQuantity: integer("product_quantity"),
+});

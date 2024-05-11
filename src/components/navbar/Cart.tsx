@@ -10,15 +10,22 @@ import {
   SheetHeader,
   SheetTitle,
 } from "../ui/sheet";
-import { CreditCard, ShoppingCart, Trash, X } from "lucide-react";
+import { CreditCard, Minus, Plus, ShoppingCart, Trash, X } from "lucide-react";
 import { useShoppingCart } from "../context/ShoppingCartProvider";
 import Link from "next/link";
 import { useState } from "react";
 import { formattCurrency } from "~/utils/formattCurrency";
+import { Separator } from "../ui/separator";
 
 const Cart = () => {
-  const { cartItems, cartQuantity, removeFromCart, clearCart } =
-    useShoppingCart();
+  const {
+    cartItems,
+    cartQuantity,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeFromCart,
+    clearCart,
+  } = useShoppingCart();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -39,7 +46,7 @@ const Cart = () => {
 
       <Sheet open={isOpen} onOpenChange={() => setIsOpen(false)}>
         {cartItems.length > 0 ? (
-          <SheetContent className="overflow-y-auto overflow-x-hidden border-border">
+          <SheetContent className="w-1/2 overflow-y-auto overflow-x-hidden border-border">
             <SheetHeader>
               <SheetTitle>Cart</SheetTitle>
             </SheetHeader>
@@ -59,6 +66,7 @@ const Cart = () => {
                         <span className="mr-auto py-4 text-sm text-muted-foreground">
                           {formattCurrency(+item.price)}
                         </span>
+
                         <span>
                           {formattCurrency(item.quantity * +item.price)}{" "}
                         </span>
@@ -73,6 +81,24 @@ const Cart = () => {
                       </p>
                     </div>
                   </div>
+                  <div className="mx-auto flex w-full items-center justify-center gap-1">
+                    <Button
+                      size={"icon"}
+                      variant={"ghost"}
+                      onClick={() => decreaseCartQuantity(item.id)}
+                    >
+                      <Minus />
+                    </Button>
+                    Quantity: {item.quantity}
+                    <Button
+                      size={"icon"}
+                      variant={"ghost"}
+                      onClick={() => increaseCartQuantity(item)}
+                    >
+                      <Plus />
+                    </Button>
+                  </div>
+                  <Separator />
                 </li>
               ))}
             </ul>
