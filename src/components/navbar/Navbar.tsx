@@ -10,10 +10,17 @@ import { eq } from "drizzle-orm";
 export default async function Navbar() {
   const session = await getServerAuthSession();
 
-  const currentUser = await db
-    .select()
-    .from(users)
-    .where(eq(users.id, session?.user.id as any));
+  let role;
+
+  if (!session) role = "USER";
+  else {
+    const currentUser = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, session?.user.id as any));
+
+    role = currentUser[0]?.role || "USER";
+  }
 
   return (
     <nav className="sticky top-0 z-50 flex w-full items-center gap-2 border-b bg-background px-8 py-3">
@@ -22,7 +29,7 @@ export default async function Navbar() {
         <p className="text-xl">Next Dukan</p>
       </Link>
       <div className="ml-auto flex items-center gap-3">
-        <AuthButtons role={currentUser[0]?.role!} />
+        <AuthButtons role={role as any} />
         <Cart />
       </div>
     </nav>

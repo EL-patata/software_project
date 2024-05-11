@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 import { toast } from "~/components/ui/use-toast";
-import { useSessionStorage } from "~/hooks/use-session-storage";
+import { useSessionStorage } from "usehooks-ts";
 import { Product } from "~/types/product";
 
 type ShoppingCartProviderProps = {
