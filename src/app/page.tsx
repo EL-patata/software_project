@@ -67,10 +67,7 @@ export default async function page({ searchParams }: Props) {
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
         {data?.map((product) => (
-          <Link
-            key={product.id}
-            href={`${process.env.NEXTAUTH_URL!}/products/${product.id}`}
-          >
+          <Link key={product.id} href={`/products/${product.id}`}>
             <Card className="grid h-[525px] gap-4 border-none p-4 shadow-none transition-all hover:shadow-lg">
               <CardHeader>
                 <CardTitle className="mb-auto">{product.name}</CardTitle>
