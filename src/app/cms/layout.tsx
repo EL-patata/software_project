@@ -10,6 +10,8 @@ import { users } from "~/server/db/schema";
 export default async function layout({ children }: PropsWithChildren) {
   const session = await getServerAuthSession();
 
+  if (!session) return notFound();
+
   const currentUser = await db
     .select()
     .from(users)

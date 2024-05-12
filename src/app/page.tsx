@@ -16,10 +16,7 @@ import { products } from "~/server/db/schema";
 import { formattCurrency } from "~/utils/formattCurrency";
 
 type SearchParams = {
-  name: string;
-  searchQuery: string;
   category: string;
-  price: string;
 };
 
 type Props = {

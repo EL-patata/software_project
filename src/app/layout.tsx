@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import SessionProvider from "../components/context/SessionProvider";
 import Navbar from "~/components/navbar/Navbar";
 import { ShoppingCartProvider } from "~/components/context/ShoppingCartProvider";
+import { ThemeProvider } from "~/components/context/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,12 +28,19 @@ export default function RootLayout({
       <body
         className={`flex min-w-full flex-col gap-1 px-4 font-sans ${inter.variable}`}
       >
-        <SessionProvider>
-          <ShoppingCartProvider>
-            <Navbar />
-            {children}
-          </ShoppingCartProvider>
-        </SessionProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SessionProvider>
+            <ShoppingCartProvider>
+              <Navbar />
+              {children}
+            </ShoppingCartProvider>
+          </SessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

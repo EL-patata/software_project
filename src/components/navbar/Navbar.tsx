@@ -6,6 +6,8 @@ import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
 import { users } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
+import Search from "./Search";
+import { ModeToggle } from "./ModeToggle";
 
 export default async function Navbar() {
   const session = await getServerAuthSession();
@@ -30,6 +32,7 @@ export default async function Navbar() {
       </Link>
       <div className="ml-auto flex items-center gap-3">
         <AuthButtons role={role as any} />
+        <ModeToggle />
         <Cart />
       </div>
     </nav>
